@@ -11,13 +11,22 @@
   },
   "dependencies": {
     "@mantine/core": "8.3.1",
+    "@mantine/form": "^8.3.1",
     "@mantine/hooks": "8.3.1",
+    "@tabler/icons-react": "^3.35.0",
+    "katex": "^0.16.22",
+    "ml-matrix": "^6.12.1",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-katex": "^3.1.0",
+    "recharts": "^3.2.1",
+    "vis-data": "^8.0.3",
+    "vis-network": "^10.0.2"
   },
   "devDependencies": {
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@types/react-katex": "^3.0.4",
     "@vitejs/plugin-react": "^5.0.2",
     "postcss": "^8.5.6",
     "postcss-preset-mantine": "1.18.0",
