@@ -1,6 +1,8 @@
 import { Stack, Text, Table, NumberInput, Alert, Group, Badge } from "@mantine/core";
 import { useMarkovChainFormContext } from "../_contexts/markov-chain-form-context";
 import { IconInfoCircle, IconAlertTriangle } from "@tabler/icons-react";
+import { InlineMath } from 'react-katex';
+import 'katex/dist/katex.min.css';
 
 export function Step2() {
     const form = useMarkovChainFormContext();
@@ -54,7 +56,9 @@ export function Step2() {
                         </Table.Th>
                         {stateLabels.map((label, colIdx) => (
                             <Table.Th key={colIdx} ta="center" bg="blue.1">
-                                <Text fw={500} size="sm">{label}</Text>
+                                <Text fw={500} size="sm">
+                                    <InlineMath math={label} />
+                                </Text>
                             </Table.Th>
                         ))}
                         <Table.Th ta="center" bg="gray.1">
@@ -70,7 +74,9 @@ export function Step2() {
                         return (
                             <Table.Tr key={rowIdx}>
                                 <Table.Td ta="center" bg="blue.1">
-                                    <Text fw={500} size="sm">{rowLabel}</Text>
+                                    <Text fw={500} size="sm">
+                                        <InlineMath math={rowLabel} />
+                                    </Text>
                                 </Table.Td>
                                 {stateLabels.map((_, colIdx) => (
                                     <Table.Td key={colIdx} p="xs">

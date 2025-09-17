@@ -137,36 +137,37 @@ export function StepFinal({ onRestart }: StepFinalProps) {
     // Network graph setup
     useEffect(() => {
         if (networkRef.current && states.length > 0) {
-            // Create nodes
-            const nodes = new DataSet(
-                states.map((state, i) => ({
-                    id: i,
-                    label: state,
-                    color: {
-                        background: stateColors[i % stateColors.length],
-                        border: '#000000'
-                    }
-                }))
-            );
+            // Create nodes data
+            const nodesArray = states.map((state, i) => ({
+                id: i,
+                label: state,
+                color: {
+                    background: stateColors[i % stateColors.length],
+                    border: '#000000'
+                }
+            }));
 
-            // Create edges
-            const edges = new DataSet(
-                transitionMatrix.flatMap((row, i) =>
-                    row.map((prob, j) => {
-                        if (prob > 0) {
-                            return {
-                                from: i,
-                                to: j,
-                                label: prob.toFixed(2),
-                                arrows: 'to',
-                                width: Math.max(1, prob * 5),
-                                smooth: i === j ? { type: 'curvedCW', roundness: 0.2 } : false
-                            };
-                        }
-                        return null;
-                    }).filter(Boolean)
-                ).filter(Boolean)
-            );
+            // Create edges data
+            const edgesArray: any[] = [];
+            transitionMatrix.forEach((row, i) => {
+                row.forEach((prob, j) => {
+                    if (prob > 0) {
+                        edgesArray.push({
+                            id: `${i}-${j}`,
+                            from: i,
+                            to: j,
+                            label: prob.toFixed(2),
+                            arrows: 'to',
+                            width: Math.max(1, prob * 5),
+                            smooth: i === j ? { type: 'curvedCW', roundness: 0.2 } : false
+                        });
+                    }
+                });
+            });
+
+            // Create DataSets
+            const nodes = new DataSet(nodesArray);
+            const edges = new DataSet(edgesArray);
 
             // Create network
             const data = { nodes, edges };
@@ -401,7 +402,9 @@ export function StepFinal({ onRestart }: StepFinalProps) {
                             <Table.Tbody>
                                 {states.map((state, i) => (
                                     <Table.Tr key={state}>
-                                        <Table.Td ta="center" fw={500}>{state}</Table.Td>
+                                        <Table.Td ta="center" fw={500}>
+                                            <InlineMath math={state} />
+                                        </Table.Td>
                                         <Table.Td ta="center">
                                             <Badge variant="light" color="green">
                                                 {steadyState[i].toFixed(4)}

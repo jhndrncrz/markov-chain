@@ -1,6 +1,8 @@
 import { Stack, Text, Alert, Checkbox, NumberInput, Group, Table, Badge } from "@mantine/core";
 import { useMarkovChainFormContext } from "../_contexts/markov-chain-form-context";
 import { IconInfoCircle, IconTarget, IconInfinity } from "@tabler/icons-react";
+import { InlineMath } from 'react-katex';
+import 'katex/dist/katex.min.css';
 
 export function Step3() {
     const form = useMarkovChainFormContext();
@@ -37,7 +39,12 @@ export function Step3() {
             <Stack gap="md">
                 <Text fw={500} size="md">Initial State Probabilities</Text>
                 <Text size="sm" c="dimmed">
-                    Enter the probability of starting in each state (A₀, B₀, C₀, etc.). These must sum to 1.0.
+                    Enter the probability of starting in each state ({states.map((state, i) => (
+                        <span key={state}>
+                            <InlineMath math={`${state}_0`} />
+                            {i < states.length - 1 ? ', ' : ''}
+                        </span>
+                    ))}). These must sum to 1.0.
                 </Text>
 
                 <Table striped highlightOnHover withTableBorder withColumnBorders>
@@ -55,7 +62,9 @@ export function Step3() {
                         {stateLabels.map((state, index) => (
                             <Table.Tr key={index}>
                                 <Table.Td ta="center" bg="blue.1">
-                                    <Text fw={500} size="sm">{state}₀</Text>
+                                    <Text fw={500} size="sm">
+                                        <InlineMath math={`${state}_0`} />
+                                    </Text>
                                 </Table.Td>
                                 <Table.Td p="xs">
                                     <NumberInput
