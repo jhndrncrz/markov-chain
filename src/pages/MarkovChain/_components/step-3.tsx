@@ -39,10 +39,10 @@ export function Step3() {
             <Stack gap="md">
                 <Text fw={500} size="md">Initial State Probabilities</Text>
                 <Text size="sm" c="dimmed">
-                    Enter the probability of starting in each state ({states.map((state, i) => (
+                    Enter the probability of starting in each state ({stateLabels.map((state, i) => (
                         <span key={state}>
                             <InlineMath math={`${state}_0`} />
-                            {i < states.length - 1 ? ', ' : ''}
+                            {i < stateLabels.length - 1 ? ', ' : ''}
                         </span>
                     ))}). These must sum to 1.0.
                 </Text>
